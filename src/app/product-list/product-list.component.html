@@ -71,6 +71,7 @@
                 <input
                   type="number"
                   (input)="filterByDiscount()"
+                  (keydown.backspace)="filterByDiscount()"
                   [(ngModel)]="discountPrice"
                   pInputText
                   placeholder="Enter discount amount"

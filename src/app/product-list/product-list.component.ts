@@ -12,9 +12,9 @@ export class ProductListComponent implements OnInit {
   productsList: any[] = [];
   categoriesList: string[] = [];
   rangeValues: number[] = [0, 1000];
-  minPrice=['Rs 500', 'Rs 1000', 'Rs 2000']
-  maxPrice=['Rs 10000','Rs 20000']
-  discountPrice!:string
+  minPrice = ['Rs 500', 'Rs 1000', 'Rs 2000'];
+  maxPrice = ['Rs 10000', 'Rs 20000'];
+  discountPrice!: number;
 
   searchTerm = '';
   constructor(private _apiService: ApiService) {}
@@ -80,16 +80,16 @@ export class ProductListComponent implements OnInit {
   }
 
   filterByDiscount() {
-    // this.allProducts.map((item)=> console.log(parseFloat(item.discount)))
-    const filteredProductsByDiscount = this.allProducts.filter((item) => {
-      if (this.discountPrice === '') {
-        return true; // Return all products when discountPrice is empty
-      }
-      return item.discount === this.discountPrice;
-    });
-    console.log("discount", filteredProductsByDiscount);
-    this.allProducts = filteredProductsByDiscount;
+    const inputValue = this.discountPrice?.toString();
+    if (inputValue) {
+      this.allProducts = this.productsList;
+      const filteredProductsByDiscount = this.allProducts.filter((item) => {
+        const itemDiscount = item.discount.toString();
+        return itemDiscount.startsWith(inputValue);
+      });
+      this.allProducts = filteredProductsByDiscount;
+    } else {
+      this.allProducts = this.productsList;
+    }
   }
-
-
 }
