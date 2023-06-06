@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ProductList } from '../Interface/custom';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ApiService {
   constructor(private http:HttpClient) { }
 
   getAllProductsList(){
-    return this.http.get<any>(`${this.apiUrl}/products?limit=100`)
+    return this.http.get<ProductList>(`${this.apiUrl}/products?limit=100`)
   }
 
   getProductCategories(){

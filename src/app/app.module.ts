@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
-
+import { SidebarModule } from 'primeng/sidebar';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, ProductListComponent],
   imports: [
@@ -26,7 +27,9 @@ import { SliderModule } from 'primeng/slider';
     InputTextModule,
     FormsModule,
     DropdownModule,
-    SliderModule
+    SliderModule,
+    SidebarModule,
+    BrowserAnimationsModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

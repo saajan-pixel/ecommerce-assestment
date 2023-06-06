@@ -1,11 +1,28 @@
+
+.bar{
+  height: 40px;
+  width: 100%;
+  padding: 14px 16px;
+  background-color: white;
+  padding:0 20px;
+}
+
+
 .rating-badge {
   background-color: #388e3c;
   padding: 5px;
   color: white;
   font-weight: 500;
-  width: 44px;
+  width: 60px;
   border-radius: 5px;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  i{
+    font-size: 12px;
+  }
 }
 
 .price {
@@ -20,16 +37,17 @@
 }
 
 ::ng-deep .p-card{
-  width: 300px !important;
+  // width: 300px !important;
 }
 
 ::ng-deep .p-card-title {
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  text-overflow: ellipsis !important;
+  // overflow: hidden !important;
+  // white-space: nowrap !important;
+  // text-overflow: ellipsis !important;
   font-size: 1rem !important;
   padding-top: 1em !important;
   padding-left: 1em !important;
+  padding-right: 1em !important;
 }
 
 ::ng-deep .p-card-body{
@@ -54,4 +72,19 @@
 
 .p-1em{
   padding: 1em!important;
+}
+
+
+.px-1em{
+  padding: 0 1em !important;
+}
+
+
+strong{
+  font-size: 12px;
+}
+
+
+.cursor-pointer{
+  cursor: pointer;
 }

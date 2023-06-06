@@ -1,3 +1,21 @@
+<div class="bar flex justify-content-between align-items-center">
+  <div>
+    <div class="sortBy">
+      <div class="flex gap-2 align-items-center cursor-pointer">
+        <i class="pi pi-sort-alpha-down"></i>
+        <select (change)="sortBy($event)">
+          <option>Sort By</option>
+          <option>Name</option>
+          <option>Price</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div (click)="sidebarVisible2 = true" class="cursor-pointer">
+    <i class="pi pi-filter"></i> Filter
+  </div>
+</div>
+
 <div class="container">
   <div class="flex justify-content-end mb-4">
     <span class="p-input-icon-left">
@@ -13,58 +31,103 @@
     </span>
   </div>
 
-  <div class="grid">
-    <div class="col-3 md:col-6 lg:col-3">
-      <p-card
-        header="Filters"
-        class="flex justify-content-end"
-        [style]="{ width: '300px', height: '410px', cursor: 'pointer' }"
-      >
+  <div class="grid mt-3">
+    <div class="col-3 md:col-6 lg:col-4 xl:col-3">
+      <p-card header="Filters" [style]="{ cursor: 'pointer' }">
         <hr />
 
         <div class="filters">
           <div class="categories p-1em">
             <h5>Categories</h5>
-
             <select class="p-2 mt-2" (change)="filterByCategory($event)">
               <option selected>Select Category</option>
               <option *ngFor="let item of categoriesList">{{ item }}</option>
             </select>
-            <!--
-            <p-dropdown
-              [options]="categoriesList"
-
-              optionLabel="name"
-            ></p-dropdown> -->
           </div>
           <hr />
 
           <div class="prire-range p-1em">
             <h5>Price</h5>
-            <div class="p-2 mt-2">
-              <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>
+            <div class="p-2">
+              <!-- <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider> -->
+              <div class="mt-2">
+                <div class="grid">
+                  <div class="col-12 md:col-6 lg:col-3">
+                    <strong>Between</strong>
+                  </div>
+
+                  <div
+                    class="col-12 md:col-6 lg:col-8 flex align-items-center gap-2"
+                  >
+                    <select #MinPrice>
+                      <option selected>Min</option>
+                      <option *ngFor="let item of minPrice">
+                        {{ item }}
+                      </option>
+                    </select>
+                    <span>to</span>
+
+                    <select
+                      #MaxPrice
+                      (change)="filterByPrice(MinPrice, MaxPrice)"
+                    >
+                      <option selected>Max</option>
+                      <option *ngFor="let item of maxPrice">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
               <div class="flex align-items-center gap-2 mt-2">
-                <select>
-                  <option selected>Min</option>
-                  <option *ngFor="let item of minPrice">
-                    {{ item }}
-                  </option>
-                </select>
-                <span>to</span>
+                <div class="grid">
+                  <div class="col-12 md:col-6 lg:col-6">
+                    <strong>Under</strong>
+                  </div>
 
-                <select>
-                  <option selected>Max</option>
-                  <option *ngFor="let item of maxPrice">
-                    {{ item }}
-                  </option>
-                </select>
+                  <div
+                    class="col-12 md:col-6 lg:col-6 flex align-items-center gap-2"
+                  >
+                    <select
+                      #underPrice
+                      (change)="filterProductUnderSelectedPrice(underPrice)"
+                    >
+                      <option selected>Under</option>
+                      <option *ngFor="let item of maxPrice">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex align-items-center gap-2 mt-2">
+                <div class="grid">
+                  <div class="col-12 md:col-6 lg:col-6">
+                    <strong>Above</strong>
+                  </div>
+
+                  <div
+                    class="col-12 md:col-6 lg:col-6 flex align-items-center gap-2"
+                  >
+                    <select
+                      #abovePrice
+                      (change)="filterProductAboveSelectedPrice(abovePrice)"
+                    >
+                      <option selected>Above</option>
+                      <option *ngFor="let item of minPrice">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <hr />
 
-          <div class="prire-range p-1em">
+          <div class="Discount p-1em">
             <h5>Discount</h5>
             <div class="p-2 mt-2">
               <div class="flex align-items-center gap-2 mt-2">
@@ -79,16 +142,40 @@
               </div>
             </div>
           </div>
+
+          <hr />
+          <div class="sortBy p-1em">
+            <h5>Sort By</h5>
+
+            <div class="p-2">
+              <select (change)="sortBy($event)">
+                <option>Sort By</option>
+                <option>Name</option>
+                <option>Price</option>
+              </select>
+            </div>
+          </div>
         </div>
       </p-card>
     </div>
-    <div class="col-9 md:col-6 lg:col-9">
+    <div
+      class="col-9 md:col-6 lg:col-8 xl:col-9"
+      *ngIf="allProducts.length > 0"
+    >
       <div class="grid">
-        <div class="col-9 md:col-6 lg:col-4" *ngFor="let item of allProducts">
+        <div
+          class="col-12 md:col-12 lg:col-6 xl:col-4"
+          *ngFor="let item of allProducts"
+        >
           <p-card
-            header="{{ item.title }}"
+            title="{{ item.title }}"
+            header="{{
+              item.title.length > 25
+                ? item.title.slice(0, 25) + '...'
+                : item.title
+            }}"
             class="flex justify-content-end px-1em"
-            [style]="{ width: '360px', height: '410px', cursor: 'pointer' }"
+            [style]="{ width: '360px', height: '390px', cursor: 'pointer' }"
           >
             <ng-template pTemplate="header">
               <img alt="Card" class="product-img" src="{{ item.thumbnail }}" />
@@ -96,17 +183,17 @@
 
             <div class="px-1em">
               <div class="rating-badge">
-                {{ item.rating }}
+                {{ item.rating }} <i class="pi pi-star"></i>
               </div>
 
               <div class="flex gap-3 align-items-center mt-2">
-                <div class="price">Rs {{ item.price }}</div>
+                <div class="price">Rs {{ item.discountPrice }}</div>
 
-                <div class="discount">Rs {{ item.discount }}</div>
+                <div class="discount">Rs {{ item.price }}</div>
+              </div>
 
-                <div class="discount-percentage">
-                  {{ item.discountPercentage }}% off
-                </div>
+              <div class="discount-percentage mt-2">
+                {{ item.discountPercentage }}% off
               </div>
 
               <ng-template pTemplate="footer">
@@ -118,5 +205,120 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="col-9 md:col-6 lg:col-8 xl:col-9 flex align-items-center justify-content-center"
+      *ngIf="allProducts.length === 0"
+    >
+      Sorry, no results found! Please check the spelling or try searching for
+      something else
+    </div>
   </div>
 </div>
+
+<p-sidebar [(visible)]="sidebarVisible2" position="right">
+  <h3>Filters</h3>
+  <hr>
+
+  <div class="filters">
+    <div class="categories p-1em">
+      <h5>Categories</h5>
+      <select class="p-2 mt-2" (change)="filterByCategory($event)">
+        <option selected>Select Category</option>
+        <option *ngFor="let item of categoriesList">{{ item }}</option>
+      </select>
+    </div>
+    <hr />
+
+    <div class="prire-range p-1em">
+      <h5>Price</h5>
+      <div class="p-2">
+        <!-- <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider> -->
+        <div class="mt-2">
+          <div class="grid">
+            <div class="col-12 md:col-6 lg:col-3">
+              <strong>Between</strong>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-8 flex align-items-center gap-2">
+              <select #MinPrice>
+                <option selected>Min</option>
+                <option *ngFor="let item of minPrice">
+                  {{ item }}
+                </option>
+              </select>
+              <span>to</span>
+
+              <select #MaxPrice (change)="filterByPrice(MinPrice, MaxPrice)">
+                <option selected>Max</option>
+                <option *ngFor="let item of maxPrice">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex align-items-center gap-2 mt-2">
+          <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6">
+              <strong>Under</strong>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-6 flex align-items-center gap-2">
+              <select
+                #underPrice
+                (change)="filterProductUnderSelectedPrice(underPrice)"
+              >
+                <option selected>Under</option>
+                <option *ngFor="let item of maxPrice">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex align-items-center gap-2 mt-2">
+          <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6">
+              <strong>Above</strong>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-6 flex align-items-center gap-2">
+              <select
+                #abovePrice
+                (change)="filterProductAboveSelectedPrice(abovePrice)"
+              >
+                <option selected>Above</option>
+                <option *ngFor="let item of minPrice">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+
+    <div class="Discount p-1em">
+      <h5>Discount</h5>
+      <div class="p-2 mt-2">
+        <div class="flex align-items-center gap-2 mt-2">
+          <input
+            type="number"
+            (input)="filterByDiscount()"
+            (keydown.backspace)="filterByDiscount()"
+            [(ngModel)]="discountPrice"
+            pInputText
+            placeholder="Enter discount amount"
+          />
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+  </div>
+</p-sidebar>
