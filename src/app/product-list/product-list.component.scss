@@ -1,0 +1,57 @@
+.rating-badge {
+  background-color: #388e3c;
+  padding: 5px;
+  color: white;
+  font-weight: 500;
+  width: 44px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.price {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #212121;
+}
+.product-img {
+  max-height: 200px;
+  height: 200px;
+}
+
+::ng-deep .p-card{
+  width: 300px !important;
+}
+
+::ng-deep .p-card-title {
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  font-size: 1rem !important;
+  padding-top: 1em !important;
+  padding-left: 1em !important;
+}
+
+::ng-deep .p-card-body{
+  padding: 0 !important;
+}
+
+.discount {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: #878787;
+
+  &-percentage {
+    color: #388e3c;
+    font-size: 13px;
+    letter-spacing: -0.2px;
+    font-weight: 500;
+  }
+}
+
+
+
+
+.p-1em{
+  padding: 1em!important;
+}

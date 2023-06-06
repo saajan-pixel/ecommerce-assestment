@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="flex justify-content-end mb-4">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        style="width: 317px"
+        (input)="searchProductByNameOrCategory()"
+        [(ngModel)]="searchTerm"
+        pInputText
+        placeholder="Search product by name or category"
+      />
+    </span>
+  </div>
+
+  <div class="grid">
+    <div class="col-3 md:col-6 lg:col-3">
+      <p-card
+        header="Filters"
+        class="flex justify-content-end"
+        [style]="{ width: '300px', height: '410px', cursor: 'pointer' }"
+      >
+        <hr />
+
+        <div class="filters">
+          <div class="categories p-1em">
+            <h5>Categories</h5>
+
+            <select class="p-2 mt-2" (change)="filterByCategory($event)">
+              <option selected>Select Category</option>
+              <option *ngFor="let item of categoriesList">{{ item }}</option>
+            </select>
+            <!--
+            <p-dropdown
+              [options]="categoriesList"
+
+              optionLabel="name"
+            ></p-dropdown> -->
+          </div>
+          <hr />
+
+          <div class="prire-range p-1em">
+            <h5>Price</h5>
+            <div class="p-2 mt-2">
+              <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>
+
+              <div class="flex align-items-center gap-2 mt-2">
+                <select>
+                  <option selected>Min</option>
+                  <option *ngFor="let item of minPrice">
+                    {{ item }}
+                  </option>
+                </select>
+                <span>to</span>
+
+                <select>
+                  <option selected>Max</option>
+                  <option *ngFor="let item of maxPrice">
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <hr />
+
+          <div class="prire-range p-1em">
+            <h5>Discount</h5>
+            <div class="p-2 mt-2">
+              <div class="flex align-items-center gap-2 mt-2">
+                <input
+                  type="number"
+                  (input)="filterByDiscount()"
+                  [(ngModel)]="discountPrice"
+                  pInputText
+                  placeholder="Enter discount amount"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+    <div class="col-9 md:col-6 lg:col-9">
+      <div class="grid">
+        <div class="col-9 md:col-6 lg:col-4" *ngFor="let item of allProducts">
+          <p-card
+            header="{{ item.title }}"
+            class="flex justify-content-end px-1em"
+            [style]="{ width: '360px', height: '410px', cursor: 'pointer' }"
+          >
+            <ng-template pTemplate="header">
+              <img alt="Card" class="product-img" src="{{ item.thumbnail }}" />
+            </ng-template>
+
+            <div class="px-1em">
+              <div class="rating-badge">
+                {{ item.rating }}
+              </div>
+
+              <div class="flex gap-3 align-items-center mt-2">
+                <div class="price">Rs {{ item.price }}</div>
+
+                <div class="discount">Rs {{ item.discount }}</div>
+
+                <div class="discount-percentage">
+                  {{ item.discountPercentage }}% off
+                </div>
+              </div>
+
+              <ng-template pTemplate="footer">
+                <p-button label="Add To Cart" icon="pi pi-check"></p-button>
+                <!-- <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button> -->
+              </ng-template>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
