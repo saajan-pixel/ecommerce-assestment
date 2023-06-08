@@ -144,19 +144,12 @@ export class ProductListComponent implements OnInit {
   filterByDiscount() {
     this.setInitialValueForSelectControls();
     const inputValue = this.discountPrice;
-    console.log('inputvalue', inputValue);
     if (inputValue) {
       this.allProducts = this.productsList;
       const filteredProductsByDiscount = this.allProducts.filter((item) => {
         const itemDiscount = item.discountPercentage.toString();
         return itemDiscount.startsWith(inputValue);
       });
-
-      // const filteredProductsByDiscount = this.productsList.filter((item) => {
-      //   return item.discountPercentage == inputValue;
-      // });
-
-      console.log('filter', filteredProductsByDiscount);
       this.allProducts = filteredProductsByDiscount;
       this.allProductsLength = this.allProducts.length;
     } else {
@@ -177,6 +170,9 @@ export class ProductListComponent implements OnInit {
     this.smForm.get('maxSelect')?.setValue('Rs 2000');
     this.smForm.get('underSelect')?.setValue('Under');
     this.smForm.get('aboveSelect')?.setValue('Above');
+
+    this.form.get('categories')?.setValue('Select Category');
+    this.smForm.get('categories')?.setValue('Select Category');
   }
 
   /**
@@ -192,6 +188,9 @@ export class ProductListComponent implements OnInit {
 
     this.smForm.get('underSelect')?.setValue('Under');
     this.smForm.get('aboveSelect')?.setValue('Above');
+
+    this.form.get('categories')?.setValue('Select Category');
+    this.smForm.get('categories')?.setValue('Select Category');
     this.discountPrice = '';
     const minPriceValue = +minPrice.value.slice(3);
     const maxPriceValue = +maxPrice.value.slice(3);
@@ -219,6 +218,9 @@ export class ProductListComponent implements OnInit {
     this.form.get('minSelect')?.setValue('Min');
     this.form.get('maxSelect')?.setValue('Rs 2000');
     this.form.get('aboveSelect')?.setValue('Above');
+
+    this.form.get('categories')?.setValue('Select Category');
+    this.smForm.get('categories')?.setValue('Select Category');
 
     this.smForm.get('minSelect')?.setValue('Min');
     this.smForm.get('maxSelect')?.setValue('Rs 2000');
@@ -252,7 +254,8 @@ export class ProductListComponent implements OnInit {
     this.form.get('minSelect')?.setValue('Min');
     this.form.get('maxSelect')?.setValue('Rs 2000');
     this.form.get('underSelect')?.setValue('Under');
-
+    this.form.get('categories')?.setValue('Select Category');
+    this.smForm.get('categories')?.setValue('Select Category');
     this.smForm.get('minSelect')?.setValue('Min');
     this.smForm.get('maxSelect')?.setValue('Rs 2000');
     this.smForm.get('underSelect')?.setValue('Under');
