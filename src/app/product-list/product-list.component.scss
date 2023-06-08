@@ -1,12 +1,10 @@
-
-.bar{
+.bar {
   height: 40px;
   width: 100%;
   padding: 14px 16px;
   background-color: white;
-  padding:0 20px;
+  padding: 0 20px;
 }
-
 
 .rating-badge {
   background-color: #388e3c;
@@ -20,7 +18,7 @@
   align-items: center;
   gap: 5px;
 
-  i{
+  i {
     font-size: 12px;
   }
 }
@@ -36,21 +34,18 @@
   height: 200px;
 }
 
-::ng-deep .p-card{
-  // width: 300px !important;
+::ng-deep .p-card {
+  font-family: "Poppins", sans-serif !important;
 }
 
 ::ng-deep .p-card-title {
-  // overflow: hidden !important;
-  // white-space: nowrap !important;
-  // text-overflow: ellipsis !important;
   font-size: 1rem !important;
   padding-top: 1em !important;
   padding-left: 1em !important;
   padding-right: 1em !important;
 }
 
-::ng-deep .p-card-body{
+::ng-deep .p-card-body {
   padding: 0 !important;
 }
 
@@ -67,24 +62,25 @@
   }
 }
 
-
-
-
-.p-1em{
-  padding: 1em!important;
+.p-1em {
+  padding: 1em !important;
 }
 
-
-.px-1em{
+.px-1em {
   padding: 0 1em !important;
 }
 
-
-strong{
+strong {
   font-size: 12px;
 }
 
-
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
+}
+
+
+.results-not{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
