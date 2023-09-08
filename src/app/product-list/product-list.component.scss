@@ -29,9 +29,11 @@
   font-weight: 500;
   color: #212121;
 }
+
 .product-img {
   max-height: 200px;
   height: 200px;
+  object-fit: cover;
 }
 
 ::ng-deep .p-card {
@@ -79,8 +81,22 @@ strong {
 }
 
 
-.results-not{
+.results-not {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+
+.pagination {
+  background: white;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  .page{
+    background: #eeeeee;
+    padding: 0 10px;
+    cursor: pointer;
+  }
 }

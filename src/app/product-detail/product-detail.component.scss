@@ -1,0 +1,35 @@
+::ng-deep .p-card {
+    width: 100% !important;
+}
+
+.text-danger {
+    color: red;
+}
+
+.product-img {
+    width: 94%;
+}
+
+.discounted-price {
+    font-size: 2rem;
+    color: green;
+    font-weight: 600;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: 600;
+    text-decoration-line: line-through;
+}
+
+.specifications {
+    border: 1px solid lightgrey;
+    padding: 10px;
+    width: 70%;
+}
+
+@media (max-width:1000px) {
+    .specifications {
+        width: 100%;
+    }
+}

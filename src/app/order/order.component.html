@@ -1,0 +1,114 @@
+<div class="mt-5 container">
+    <p-card class="flex justify-content-center" [style]="{ width: '100%' }">
+        <div class="grid">
+            <div class="col-12 md:col-12 lg:col-6">
+                <div class="w-11">
+                    <div class="flex justify-content-between">
+                        <h3>Payment</h3>
+                        <div class="icons">
+                            <img src="https://img.icons8.com/color/48/000000/visa.png" />
+                            <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                            <img src="https://img.icons8.com/color/48/000000/maestro.png" />
+                        </div>
+                    </div>
+
+                    <form [formGroup]="form">
+                        <div class="name flex flex-column">
+                            <label>Cardholder's Name</label>
+                            <input type="text" formControlName="name" pInputText class="mt-2" />
+                            <div class="mt-2"
+                                *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)">
+                                <div class="text-danger">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="cardno flex flex-column mt-3">
+                            <label>Card Number</label>
+                            <input type="text" formControlName="cardNo" pInputText class="mt-2" />
+                            <div class="mt-2"
+                                *ngIf="form.get('name')?.invalid && (form.get('cardNo')?.dirty || form.get('cardNo')?.touched)">
+                                <div class="text-danger">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 align-items-center mt-3">
+                            <div class="grid">
+                                <div class="expiry-date flex flex-column col-12 md:col-12 lg:col-6 ">
+                                    <label>Expiry Date</label>
+                                    <input type="date" formControlName="expiryDate" pInputText class="mt-2" />
+                                    <div class="mt-2"
+                                        *ngIf="form.get('expiryDate')?.invalid && (form.get('expiryDate')?.dirty || form.get('expiryDate')?.touched)">
+                                        <div class="text-danger">Required</div>
+                                    </div>
+                                </div>
+
+                                <div class="cvv col-12 md:col-12 lg:col-6 flex flex-column">
+                                    <label>CVV</label>
+                                    <input type="text" formControlName="cvv" pInputText class="mt-2 w-3" />
+                                    <div class="mt-2"
+                                        *ngIf="form.get('cvv')?.invalid && (form.get('cvv')?.dirty || form.get('cvv')?.touched)">
+                                        <div class="text-danger">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+
+            <div class="col-12 md:col-12 lg:col-6">
+                <h3>Order Summary <p-tag value="{{orderedItems.length}} Items" severity="warning"></p-tag></h3>
+                <ng-container>
+                    <p-table [value]="orderedItems" [paginator]="true"
+                        [rows]="3" [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+
+                        <ng-template pTemplate="body" let-product>
+                            <div class="md:flex md:gap-3 mt-4">
+                                <div>
+                                    <img class="w-9 sm:w-16rem lg:w-5rem xl:w-8rem shadow-2 block xl:block mx-auto border-round"
+                                        [src]="product.image" [alt]="product.title" />
+                                </div>
+
+                                <div
+                                    class="flex flex-column align-items-center sm:align-items-start gap-3 mt-3 md:mt-0">
+                                    <div class="text-sm font-bold text-900">{{ product.title }}</div>
+
+                                    <div class="text-sm font-medium text-900">$ {{ product.price.toLocaleString() }}
+                                    </div>
+                                    <div class="text-sm font-medium text-900">Qty: {{ product.quantity }}</div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <p-divider></p-divider>
+
+                    </p-table>
+                </ng-container>
+
+                <div class="flex justify-content-between align-items-center mt-3">
+                    <div>Sub Total</div>
+                    <div>$ {{subTotal.toLocaleString()}}</div>
+                </div>
+
+                <div class="flex justify-content-between align-items-center mt-3">
+                    <div>Tax</div>
+                    <div>{{tax}} %</div>
+                </div>
+
+                <div class="flex justify-content-between align-items-center mt-3">
+                    <div>Total</div>
+                    <div>$ {{total.toLocaleString()}}</div>
+                </div>
+
+                <div class="mt-3">
+                    <p-button label="Place Order" styleClass="p-button-primary" [disabled]="form.invalid"
+                        (click)="placeOrder()"></p-button>
+                </div>
+
+            </div>
+        </div>
+    </p-card>
+</div>

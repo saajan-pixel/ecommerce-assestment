@@ -164,8 +164,8 @@
           class="col-12 md:col-6 lg:col-6 xl:col-4"
           *ngFor="let item of allProducts"
         >
-          <p-card
-            class="flex justify-content-end px-1em products-card"
+          <p-card [routerLink]="['/product-detail',item.id]"
+            class="flex justify-content-end px-1em products-card cursor-pointer"
             [style]="{ width: '360px', height: '390px' }"
           >
             <h4 class="px-1em mb-3" title="{{ item.title }}">
@@ -197,6 +197,7 @@
           </p-card>
         </div>
       </div>
+      
     </div>
 
     <div

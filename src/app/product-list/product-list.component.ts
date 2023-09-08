@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
-import { first } from 'rxjs';
+import { finalize, first } from 'rxjs';
 import { Product } from '../Interface/custom';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-product-list',
@@ -23,7 +24,9 @@ export class ProductListComponent implements OnInit {
   searchTerm = '';
   form!: FormGroup;
   smForm!: FormGroup;
-  constructor(private _apiService: ApiService) {}
+  limit=100
+
+  constructor(private _apiService: ApiService,private spinner:NgxSpinnerService) {}
 
   ngOnInit() {
     this.createForm();
@@ -60,7 +63,8 @@ export class ProductListComponent implements OnInit {
    * for each product, and adds them to an array.
    */
   getAllProductLists() {
-    this._apiService.getAllProductsList().subscribe((res) => {
+    this.spinner.show()
+    this._apiService.getAllProductsList(this.limit).pipe(first(),finalize(()=> this.spinner.hide())).subscribe((res) => {
       res.products.map((item: Product) => {
         let discount: number = 0;
         const discountPercentage: number = item.discountPercentage;
@@ -331,4 +335,7 @@ export class ProductListComponent implements OnInit {
     this.smForm.get('categories')?.setValue('Select Category');
     this.smForm.get('sortBy')?.setValue('Sort By');
   }
+
+
+  
 }

@@ -1,0 +1,50 @@
+<div class="mt-5 container">
+    <p-card class="flex justify-content-center" header="{{productDetail?.title}}" [style]="">
+        <div class="grid px-2">
+            <div class="col-12 md:col-6 lg:col-6 xl:col-6">
+                <img class="product-img" [src]="productDetail?.images[0]" alt="img">
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 xl:col-6">
+                <p class="mb-3">{{productDetail?.description}}</p>
+                <div class="flex align-items-center gap-3 mb-3">
+                    <div class="price">$ {{productDetail?.price}}</div>
+                    <div class="discounted-price">$ {{productDetail?.discountedPrice}}</div>
+                </div>
+                <div class="rating flex gap-3 align-items-center">
+                    <p-rating [readonly]="true" [(ngModel)]="rating" [cancel]="false"></p-rating>
+                    <p-tag severity="danger" value="{{productDetail?.rating}}"></p-tag>
+                </div>
+
+                <div class="specifications mt-5">
+                    <div class="grid mb-3">
+                        <div class="col-6">Brand</div>
+                        <div class="col-6"> <p-tag value="{{productDetail?.brand}}"></p-tag></div>
+                    </div>
+
+                    <div class="grid mb-3">
+                        <div class="col-6">Category</div>
+                        <div class="col-6">
+                            <p-tag severity="warning" value="{{productDetail?.category}}"></p-tag>
+                        </div>
+                    </div>
+                    <div class="grid mt-3">
+                        <div class="col-6">Stock</div>
+                        <div class="col-6 text-xl font-medium">34</div>
+                    </div>
+                </div>
+
+
+                <div class="mt-5 flex align-items-center gap-3">
+                    <input pInputText type="number" min="0" style="width: 100px;" class="p-inputtext-sm"
+                        [(ngModel)]="quantity" />
+                    <p-button label="Add to Cart" (click)="addToCart()"></p-button>
+                </div>
+
+
+            </div>
+        </div>
+    </p-card>
+
+</div>
+
+<p-toast></p-toast>

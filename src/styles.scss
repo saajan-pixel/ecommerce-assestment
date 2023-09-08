@@ -30,6 +30,18 @@ select {
   font-family: "Poppins", sans-serif;
 }
 
+p-toast{
+  z-index: 999999999999;
+}
+
+.text-danger{
+  color: red;
+}
+
+.p-rating .p-rating-icon.pi-star-fill {
+  color: orange !important
+}
+
 
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 767.98px) {
