@@ -3,11 +3,7 @@
     <div class="sortBy">
       <div class="flex gap-2 align-items-center cursor-pointer">
         <i class="pi pi-sort-alpha-down"></i>
-        <select
-          (change)="sortBy($event)"
-          class="p-5px"
-          formControlName="sortBy"
-        >
+        <select (change)="sortBy($event)" class="p-5px" formControlName="sortBy">
           <option selected>Sort By</option>
           <option *ngFor="let item of SortBy">{{ item }}</option>
         </select>
@@ -23,14 +19,8 @@
   <div class="flex justify-content-end mb-4">
     <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input
-        type="text"
-        class="input-search"
-        (input)="searchProductByNameOrCategory()"
-        [(ngModel)]="searchTerm"
-        pInputText
-        placeholder="Search product by name or category"
-      />
+      <input type="text" class="input-search" (input)="searchProductByNameOrCategory()" [(ngModel)]="searchTerm"
+        pInputText placeholder="Search product by name or category" />
     </span>
   </div>
 
@@ -43,11 +33,7 @@
           <div class="filters">
             <div class="categories p-1em">
               <h5>Categories</h5>
-              <select
-                class="p-2 mt-2 w-full"
-                formControlName="categories"
-                (change)="filterByCategory($event)"
-              >
+              <select class="p-2 mt-2 w-full" formControlName="categories" (change)="filterByCategory($event)">
                 <option selected>Select Category</option>
                 <option *ngFor="let item of categoriesList">{{ item }}</option>
               </select>
@@ -58,12 +44,8 @@
               <h5>Price</h5>
               <div class="p-2">
                 <div class="flex align-items-center gap-2">
-                  <select
-                    #MinPrice
-                    class="p-5px"
-                    formControlName="minSelect"
-                    (change)="filterByPrice(MinPrice, MaxPrice)"
-                  >
+                  <select #MinPrice class="p-5px" formControlName="minSelect"
+                    (change)="filterByPrice(MinPrice, MaxPrice)">
                     <option selected>Min</option>
                     <option *ngFor="let item of minPrice">
                       {{ item }}
@@ -71,28 +53,17 @@
                   </select>
                   <span>to</span>
 
-                  <select
-                    #MaxPrice
-                    (change)="filterByPrice(MinPrice, MaxPrice)"
-                    class="p-5px"
-                    formControlName="maxSelect"
-                  >
-                    <option
-                      *ngFor="let item of maxPrice"
-                      [selected]="item === 'Rs 2000'"
-                    >
+                  <select #MaxPrice (change)="filterByPrice(MinPrice, MaxPrice)" class="p-5px"
+                    formControlName="maxSelect">
+                    <option *ngFor="let item of maxPrice" [selected]="item === 'Rs 2000'">
                       {{ item }}
                     </option>
                   </select>
                 </div>
 
                 <div class="flex align-items-center gap-2 mt-2">
-                  <select
-                    class="p-5px"
-                    #underPrice
-                    (change)="filterProductUnderSelectedPrice(underPrice)"
-                    formControlName="underSelect"
-                  >
+                  <select class="p-5px" #underPrice (change)="filterProductUnderSelectedPrice(underPrice)"
+                    formControlName="underSelect">
                     <option selected>Under</option>
                     <option *ngFor="let item of maxPrice">
                       {{ item }}
@@ -101,12 +72,8 @@
                 </div>
 
                 <div class="flex align-items-center gap-2 mt-2">
-                  <select
-                    class="p-5px"
-                    #abovePrice
-                    (change)="filterProductAboveSelectedPrice(abovePrice)"
-                    formControlName="aboveSelect"
-                  >
+                  <select class="p-5px" #abovePrice (change)="filterProductAboveSelectedPrice(abovePrice)"
+                    formControlName="aboveSelect">
                     <option selected>Above</option>
                     <option *ngFor="let item of minPrice">
                       {{ item }}
@@ -121,16 +88,9 @@
               <h5>Discount</h5>
               <div class="p-2 mt-2">
                 <div class="flex align-items-center gap-2 mt-2">
-                  <input
-                    type="number"
-                    (input)="filterByDiscount()"
-                    (keydown.backspace)="filterByDiscount()"
-                    [(ngModel)]="discountPrice"
-                    [ngModelOptions]="{ standalone: true }"
-                    pInputText
-                    class="w-full text-sm"
-                    placeholder="Enter discount %"
-                  />
+                  <input type="number" (input)="filterByDiscount()" (keydown.backspace)="filterByDiscount()"
+                    [(ngModel)]="discountPrice" [ngModelOptions]="{ standalone: true }" pInputText
+                    class="w-full text-sm" placeholder="Enter discount %" />
                 </div>
               </div>
             </div>
@@ -140,11 +100,7 @@
               <h5>Sort By</h5>
 
               <div class="p-2">
-                <select
-                  (change)="sortBy($event)"
-                  class="p-5px"
-                  formControlName="sortBy"
-                >
+                <select (change)="sortBy($event)" class="p-5px" formControlName="sortBy">
                   <option selected>Sort By</option>
                   <option *ngFor="let item of SortBy">{{ item }}</option>
                 </select>
@@ -155,24 +111,17 @@
       </p-card>
     </div>
 
-    <div
-      class="col-12 md:col-12 lg:col-8 xl:col-9 products"
-      *ngIf="allProducts.length > 0"
-    >
+    <div class="col-12 md:col-12 lg:col-8 xl:col-9 products" *ngIf="allProducts.length > 0">
       <div class="grid">
-        <div
-          class="col-12 md:col-6 lg:col-6 xl:col-4"
-          *ngFor="let item of allProducts"
-        >
+        <div class="col-12 md:col-6 lg:col-6 xl:col-4" *ngFor="let item of allProducts">
           <p-card [routerLink]="['/product-detail',item.id]"
             class="flex justify-content-end px-1em products-card cursor-pointer"
-            [style]="{ width: '360px', height: '390px' }"
-          >
+            [style]="{ width: '360px', height: '390px' }">
             <h4 class="px-1em mb-3" title="{{ item.title }}">
               {{
-                item.title.length > 20
-                  ? item.title.slice(0, 20) + "..."
-                  : item.title
+              item.title.length > 20
+              ? item.title.slice(0, 20) + "..."
+              : item.title
               }}
             </h4>
             <ng-template pTemplate="header">
@@ -197,20 +146,14 @@
           </p-card>
         </div>
       </div>
-      
+
     </div>
 
-    <div
-      class="col-12 md:col-12 lg:col-8 xl:col-9 p-card p-4 results-not"
-      *ngIf="allProductsLength === 0"
-    >
+    <div class="col-12 md:col-12 lg:col-8 xl:col-9 p-4 results-not" *ngIf="allProductsLength === 0">
       <div class="not-found text-center">Sorry, no results found!</div>
 
       <div class="flex justify-content-center mt-3">
-        <p-button
-          label="Go Back"
-          (onClick)="getAllProductLists(); goBack()"
-        ></p-button>
+        <p-button label="Go Back" (onClick)="getAllProductLists(); goBack()"></p-button>
       </div>
     </div>
   </div>
@@ -225,11 +168,7 @@
     <div class="filters">
       <div class="categories p-1em">
         <h5>Categories</h5>
-        <select
-          class="p-2 mt-2 w-full"
-          (change)="filterByCategory($event)"
-          formControlName="categories"
-        >
+        <select class="p-2 mt-2 w-full" (change)="filterByCategory($event)" formControlName="categories">
           <option selected>Select Category</option>
           <option *ngFor="let item of categoriesList">{{ item }}</option>
         </select>
@@ -240,12 +179,8 @@
         <h5>Price</h5>
         <div class="p-2">
           <div class="flex align-items-center gap-2">
-            <select
-              #smMinPrice
-              class="p-5px"
-              formControlName="minSelect"
-              (change)="filterByPrice(smMinPrice, smMaxPrice)"
-            >
+            <select #smMinPrice class="p-5px" formControlName="minSelect"
+              (change)="filterByPrice(smMinPrice, smMaxPrice)">
               <option selected>Min</option>
               <option *ngFor="let item of minPrice">
                 {{ item }}
@@ -253,28 +188,17 @@
             </select>
             <span>to</span>
 
-            <select
-              #smMaxPrice
-              (change)="filterByPrice(smMinPrice, smMaxPrice)"
-              class="p-5px"
-              formControlName="maxSelect"
-            >
-              <option
-                *ngFor="let item of maxPrice"
-                [selected]="item === 'Rs 2000'"
-              >
+            <select #smMaxPrice (change)="filterByPrice(smMinPrice, smMaxPrice)" class="p-5px"
+              formControlName="maxSelect">
+              <option *ngFor="let item of maxPrice" [selected]="item === 'Rs 2000'">
                 {{ item }}
               </option>
             </select>
           </div>
 
           <div class="flex align-items-center gap-2 mt-2">
-            <select
-              class="p-5px"
-              formControlName="underSelect"
-              #smunderPrice
-              (change)="filterProductUnderSelectedPrice(smunderPrice)"
-            >
+            <select class="p-5px" formControlName="underSelect" #smunderPrice
+              (change)="filterProductUnderSelectedPrice(smunderPrice)">
               <option selected>Under</option>
               <option *ngFor="let item of maxPrice">
                 {{ item }}
@@ -283,12 +207,8 @@
           </div>
 
           <div class="flex align-items-center gap-2 mt-2">
-            <select
-              class="p-5px"
-              #abovePrice
-              formControlName="aboveSelect"
-              (change)="filterProductAboveSelectedPrice(abovePrice)"
-            >
+            <select class="p-5px" #abovePrice formControlName="aboveSelect"
+              (change)="filterProductAboveSelectedPrice(abovePrice)">
               <option selected>Above</option>
               <option *ngFor="let item of minPrice">
                 {{ item }}
@@ -304,16 +224,9 @@
         <h5>Discount</h5>
         <div class="p-2 mt-2">
           <div class="flex align-items-center gap-2 mt-2">
-            <input
-            type="number"
-            (input)="filterByDiscount()"
-            (keydown.backspace)="filterByDiscount()"
-            [(ngModel)]="discountPrice"
-            [ngModelOptions]="{ standalone: true }"
-            pInputText
-            class="w-full text-sm"
-            placeholder="Enter discount %"
-          />
+            <input min="0" type="number" (input)="filterByDiscount()" (keydown.backspace)="filterByDiscount()"
+              [(ngModel)]="discountPrice" [ngModelOptions]="{ standalone: true }" pInputText class="w-full text-sm"
+              placeholder="Enter discount %" />
           </div>
         </div>
       </div>

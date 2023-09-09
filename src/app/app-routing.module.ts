@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ViewCartComponent } from './view-cart/view-cart.component';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './order/order.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 

@@ -32,7 +32,6 @@ import { DividerModule } from 'primeng/divider';
 import { MessageService } from 'primeng/api';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PaginatorModule } from 'primeng/paginator';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './order/order.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 
@@ -43,7 +42,6 @@ import { OrderSuccessComponent } from './order-success/order-success.component';
     ProductListComponent,
     ProductDetailComponent,
     ViewCartComponent,
-    CheckoutComponent,
     OrderComponent,
     OrderSuccessComponent,
   ],

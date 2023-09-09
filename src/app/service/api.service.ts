@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductList } from '../Interface/custom';
+import { Product, ProductList } from '../Interface/custom';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ApiService {
   apiUrl = 'https://dummyjson.com';
+  JsonUrl = 'https://fakeecommerceapis.onrender.com';
 
   private cartItemCountSubject = new BehaviorSubject<number>(0);
   cartItemCount$ = this.cartItemCountSubject.asObservable();
@@ -16,35 +17,35 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProductsList(limit:number) {
+  getAllProductsList(limit: number) {
     return this.http.get<ProductList>(`${this.apiUrl}/products?limit=${limit}`);
   }
 
   getProductCategories() {
-    return this.http.get<any>(`${this.apiUrl}/products/categories`);
+    return this.http.get<string[]>(`${this.apiUrl}/products/categories`);
   }
 
   getProductDetail(id: number) {
-    return this.http.get<any>(`${this.apiUrl}/products/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/products/${id}`);
   }
 
   addToCart(data: any) {
-    return this.http.post<any>(`http://localhost:3000/carts`, data);
+    return this.http.post<any>(`${this.JsonUrl}/carts`, data);
   }
 
   getAllCartItems() {
-    return this.http.get<any>(`http://localhost:3000/carts`);
+    return this.http.get<any>(`${this.JsonUrl}/carts`);
   }
 
   removeCartItem(id: number) {
-    return this.http.delete<any>(`http://localhost:3000/carts/${id}`);
+    return this.http.delete<any>(`${this.JsonUrl}/carts/${id}`);
   }
 
   sendCartItemCount(count: number) {
     this.cartItemCountSubject.next(count);
   }
 
-  sendOrderedItems(data:any){
-    this.orderedItemsSubject.next(data)
+  sendOrderedItems(data: any) {
+    this.orderedItemsSubject.next(data);
   }
 }
