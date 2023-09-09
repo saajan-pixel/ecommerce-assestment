@@ -1,6 +1,6 @@
 <div class="mt-5 container">
     <p-card class="flex justify-content-center" [style]="{ width: '100%' }">
-        <div class="grid">
+        <div class="grid px-2">
             <div class="col-12 md:col-12 lg:col-6">
                 <div class="w-11">
                     <div class="flex justify-content-between">
@@ -19,15 +19,18 @@
                             <div class="mt-2"
                                 *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)">
                                 <div class="text-danger">Required</div>
+
                             </div>
                         </div>
 
                         <div class="cardno flex flex-column mt-3">
                             <label>Card Number</label>
-                            <input type="text" formControlName="cardNo" pInputText class="mt-2" />
-                            <div class="mt-2"
-                                *ngIf="form.get('name')?.invalid && (form.get('cardNo')?.dirty || form.get('cardNo')?.touched)">
-                                <div class="text-danger">Required</div>
+                            <input type="text" formControlName="cardNo" pInputText class="mt-2" (input)="onCardNoInput($event)"/>
+                            <div class="mt-2" *ngIf="form.get('cardNo')?.invalid && (form.get('cardNo')?.dirty || form.get('cardNo')?.touched)">
+                                <div *ngIf="form.get('cardNo')?.errors?.['required']" class="text-danger">Required</div>
+                                <div *ngIf="form.get('cardNo')?.errors?.['maxlength'] || form.get('cardNo')?.errors?.['minlength']" class="text-danger">Please enter
+                                    digit of length 16</div>
+                                    
                             </div>
                         </div>
 
@@ -35,7 +38,7 @@
                             <div class="grid">
                                 <div class="expiry-date flex flex-column col-12 md:col-12 lg:col-6 ">
                                     <label>Expiry Date</label>
-                                    <input type="date" formControlName="expiryDate" pInputText class="mt-2" />
+                                    <input type="date" formControlName="expiryDate" pInputText class="mt-2"/>
                                     <div class="mt-2"
                                         *ngIf="form.get('expiryDate')?.invalid && (form.get('expiryDate')?.dirty || form.get('expiryDate')?.touched)">
                                         <div class="text-danger">Required</div>
@@ -44,10 +47,12 @@
 
                                 <div class="cvv col-12 md:col-12 lg:col-6 flex flex-column">
                                     <label>CVV</label>
-                                    <input type="text" formControlName="cvv" pInputText class="mt-2 w-3" />
+                                    <input type="text" formControlName="cvv" pInputText class="mt-2 w-3" (input)="onCardNoInput($event)"/>
                                     <div class="mt-2"
                                         *ngIf="form.get('cvv')?.invalid && (form.get('cvv')?.dirty || form.get('cvv')?.touched)">
-                                        <div class="text-danger">Required</div>
+                                        <div *ngIf="form.get('cvv')?.errors?.['required']" class="text-danger">Required</div>
+                                        <div *ngIf="form.get('cvv')?.errors?.['maxlength'] || form.get('cvv')?.errors?.['minlength']" class="text-danger">Please enter
+                                            digit of length 3</div>
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +64,7 @@
             <div class="col-12 md:col-12 lg:col-6">
                 <h3>Order Summary <p-tag value="{{orderedItems.length}} Items" severity="warning"></p-tag></h3>
                 <ng-container>
-                    <p-table [value]="orderedItems" [paginator]="true"
-                        [rows]="3" [showCurrentPageReport]="true"
+                    <p-table [value]="orderedItems" [paginator]="true" [rows]="3" [showCurrentPageReport]="true"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
 
                         <ng-template pTemplate="body" let-product>

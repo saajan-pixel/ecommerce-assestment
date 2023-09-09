@@ -30,21 +30,19 @@ export class OrderComponent implements OnInit {
   createForm() {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
-      cardNo: new FormControl(null, Validators.required),
+      cardNo: new FormControl(null, [Validators.required,Validators.maxLength(16),Validators.minLength(16)]),
       expiryDate: new FormControl(null, Validators.required),
-      cvv: new FormControl(null, Validators.required),
+      cvv: new FormControl(null, [Validators.required,Validators.maxLength(3),Validators.minLength(3)]),
     });
   }
 
   getOrderedItems() {
     this._apiService.orderedItemsSubject.pipe(first()).subscribe((res) => {
       this.orderedItems = res;
-      console.log(res);
       this.subTotal = this.orderedItems.reduce(
         (acc: number, item: any) => acc + +item.price,
         0
       );
-      console.log(this.subTotal);
       this.total = this.subTotal + (this.tax / 100) * this.subTotal;
     });
   }
@@ -55,8 +53,12 @@ export class OrderComponent implements OnInit {
         ...this.form.value,
         orderedItems: this.orderedItems,
       };
-      console.log(orderedData);
       this.router.navigateByUrl('/orderSuccess');
     }
+  }
+
+  onCardNoInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    inputElement.value = inputElement.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
   }
 }
